@@ -1,1 +1,9 @@
 /target/
+*.prefs
+*.classpath
+*.project
+*.jsdtscope
+*.component
+*.xml
+*.container
+*.name
