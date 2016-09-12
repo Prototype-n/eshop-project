@@ -3,6 +3,8 @@ package ua.service.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +68,10 @@ public class MyUserServiceImpl implements MyUserService{
 	public MyUser findOne(int id) {
 		return myUserRepository.findOneRoleInited(id);
 		//return myUserRepository.findOneRoleInited(id);
+	}
+
+	@Override
+	public Page<MyUser> findAll(Pageable pageable) {
+		return myUserRepository.findAll(pageable);
 	}
 }

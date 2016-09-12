@@ -3,6 +3,8 @@ package ua.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,9 +26,15 @@ public class CategoryController {
 		return new Category();
 	}
 	
+//	@RequestMapping("/admin/category")
+//	public String showCategory(Model model){
+//		model.addAttribute("categories", categoryService.findAll());
+//		return "AdminCategory";
+//	}
+
 	@RequestMapping("/admin/category")
-	public String showCategory(Model model){
-		model.addAttribute("categories", categoryService.findAll());
+	public String showCategory(Model model, @PageableDefault(5) Pageable pageable){
+		model.addAttribute("page", categoryService.findAll(pageable));
 		return "AdminCategory";
 	}
 	
@@ -36,8 +44,6 @@ public class CategoryController {
 //			return "redirect:/admin/category";
 //		}		
 		
-
-
 		@RequestMapping("/admin/category/delete/{id}")
 		public String deleteCategory(@PathVariable int id){
 			categoryService.delete(id);
@@ -56,4 +62,4 @@ public class CategoryController {
 			categoryService.save(category);
 			return "redirect:/admin/category";
 		}
-}
+	}

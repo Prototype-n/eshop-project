@@ -3,6 +3,8 @@ package ua.service.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +46,11 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryRepository.findAll();
 	}
 
+	@Override
+	public Page<Category> findAll(Pageable pageable) {
+		return categoryRepository.findAll(pageable);
+	}
+	
 	@Override
 	public void delete(int id) {
 		categoryRepository.delete(id);	
