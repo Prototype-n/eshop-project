@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import ua.entity.Category;
+import ua.form.filter.CategoryFilterForm;
 
 public interface CategoryService {
 
@@ -18,6 +19,8 @@ public interface CategoryService {
 	public Category findOne(int id);
 	
 	public Page<Category> findAll(Pageable pageable);
+	
+	public Page<Category> findAll(Pageable pageable, CategoryFilterForm form);
 	
 	void delete (String name);
 

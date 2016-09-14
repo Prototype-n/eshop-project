@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ua.entity.Category;
+import ua.form.filter.CategoryFilterForm;
 import ua.repository.CategoryRepository;
 import ua.service.CategoryService;
+import ua.service.implementation.specification.CategoryFilterAdapter;
 
 @Service
 @Transactional
@@ -49,6 +51,11 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public Page<Category> findAll(Pageable pageable) {
 		return categoryRepository.findAll(pageable);
+	}
+	
+	@Override
+	public Page<Category> findAll(Pageable pageable, CategoryFilterForm form) {
+		return categoryRepository.findAll(new CategoryFilterAdapter(form), pageable);
 	}
 	
 	@Override
