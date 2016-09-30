@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/custom.tld" prefix="custom"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -105,5 +106,27 @@
 	</table>
 	<br>
 	<a href="/admin/">Back to admin panel.jsp</a><br>	
+
+	<div class="col-md-2">
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<custom:sort innerHtml="Name asc" paramValue="name"/>
+						<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+						<custom:sort innerHtml="Time asc" paramValue="time"/>
+						<custom:sort innerHtml="Time desc" paramValue="time,desc"/>
+						<custom:sort innerHtml="Country name asc" paramValue="country.name"/>
+						<custom:sort innerHtml="Country name desc" paramValue="country.name,desc"/>
+					</ul>
+				</div>
+			</div>
+	</div>
+
+	<div class="col-md-6">
+		<custom:size posibleSizes="1,2,5,10" size="${page.size}" title="Page size"/>
+	</div>
+
 </body>
 </html>

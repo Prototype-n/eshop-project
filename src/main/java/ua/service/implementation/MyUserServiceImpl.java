@@ -2,23 +2,36 @@ package ua.service.implementation;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import ua.entity.MyUser;
+import ua.entity.Role;
 import ua.repository.MyUserRepository;
+import ua.repository.RoleRepository;
 import ua.service.MyUserService;
 
-@Service
-@Transactional
-public class MyUserServiceImpl implements MyUserService{
+
+@Service("userDetailsService")
+public class MyUserServiceImpl implements MyUserService, UserDetailsService {
 
 	@Autowired
 	private MyUserRepository myUserRepository;
 
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@Override
 	public void save(MyUser myUser) {
 		myUserRepository.save(myUser);
@@ -74,4 +87,38 @@ public class MyUserServiceImpl implements MyUserService{
 	public Page<MyUser> findAll(Pageable pageable) {
 		return myUserRepository.findAll(pageable);
 	}
+	
+	@Override
+	public MyUser findById(int id) {
+		return myUserRepository.findOne(id);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+			return myUserRepository.findByLogin(login);
+	}
+
+	@Override
+	public MyUser findByLogin(String login) {
+		return myUserRepository.findByLogin(login);
+	}
+	
+//	@PostConstruct
+//	public void saveAdmin(){
+//		MyUser myUser = myUserRepository.findOne(1);
+//		if(myUser==null){
+//			myUser = new MyUser();
+//			myUser.setRole(roleRepository.findByName("ROLE_ADMIN")); // Role_Admin or ROLE_ADMIN
+//			myUser.setLastName("Admin");
+//			myUser.setMail("AdminMail");
+//			myUser.setName("Admin");
+//			myUser.setPhone("123456789");
+//			myUser.setPassword(encoder.encode("admin"));
+//			myUser.setLogin("admin");
+//			myUser.setId(1);
+//			myUserRepository.save(myUser);
+//		}
+//	}
+
+
 }

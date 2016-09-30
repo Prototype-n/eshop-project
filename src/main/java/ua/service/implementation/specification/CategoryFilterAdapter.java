@@ -19,12 +19,16 @@ public class CategoryFilterAdapter implements Specification<Category>{
 	}
 
 	@Override
-	public Predicate toPredicate(Root<Category> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+	public Predicate toPredicate(
+				Root<Category> root, 
+				CriteriaQuery<?> query, 
+				CriteriaBuilder cb) {
 		if (query.getResultType() != Long.class && query.getResultType() != long.class) {
 //			root.fetch("ingredient");
 //			root.fetch("measuringSystem");
 //			query.distinct(true);
 		}
+		
 		return cb.like(cb.upper(root.get("name")), search.toUpperCase()+"%");
 	}	
 }

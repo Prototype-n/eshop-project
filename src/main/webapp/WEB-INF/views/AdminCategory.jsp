@@ -35,7 +35,7 @@
 		</table>
 	</form:form>
 
-<form:form action="/admin/category" method="get" modelAttribute="filter">
+	<form:form action="/admin/category" method="get" modelAttribute="filter">
 		<c:forEach items="${param}" var="parameter">
 			<c:forEach items="${parameter.value}" var="value">
 				<c:if test="${parameter.key ne 'search'}">
@@ -88,9 +88,6 @@
 				<td><a href="?page=1&size=${page.size}&sort=name"&search=${param['search']}>Name asc</a></td>
 				<td><a href="?page=1&size=${page.size}&sort=name,desc"&search=${param['search']}>Name desc</a></td>
 			</tr>
-		
-		
-		
 	</table>
 	
 	<table>

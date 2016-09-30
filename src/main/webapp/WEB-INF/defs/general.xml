@@ -40,4 +40,14 @@
         <put-attribute name="body" value="/WEB-INF/views/AdminRole.jsp" />
     </definition>
     
+     <definition name="Login" extends="common">
+        <put-attribute name="title" value="User" />
+        <put-attribute name="body" value="/WEB-INF/views/Login.jsp" />
+    </definition>
+    
+     <definition name="Registration" extends="common">
+        <put-attribute name="title" value="User" />
+        <put-attribute name="body" value="/WEB-INF/views/Login.jsp" />
+    </definition>
+    
 </tiles-definitions>

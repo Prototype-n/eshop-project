@@ -36,4 +36,8 @@
         <property name="viewClass"
             value="org.springframework.web.servlet.view.tiles3.TilesView" />
     </bean>
+    <bean id="multipartResolver"
+    	class="org.springframework.web.multipart.support.StandardServletMultipartResolver"> 	
+    </bean>
+   <mvc:resources mapping="/resources/**" location="/resources/" cache-period="3600"/>
 </beans>

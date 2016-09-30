@@ -8,6 +8,8 @@ import ua.entity.MyUser;
 
 public interface MyUserRepository extends JpaRepository<MyUser, Integer> {
 
+	MyUser findByLogin(String login);
+	
 	MyUser findByName(String name);
 
 	MyUser findByLastName(String lastName);

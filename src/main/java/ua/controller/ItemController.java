@@ -86,7 +86,7 @@ public class ItemController {
 			@PathVariable int id) {
 		model.addAttribute("form", itemService.findForForm(id));
 		model.addAttribute("item", itemService.findOne(id));
-		//model.addAttribute("items", itemService.findAll());
+		model.addAttribute("items", itemService.findAll());// pokazye vsepru udate
 		model.addAttribute("categories", categoryService.findAll());
 		return "AdminItem";
 	}

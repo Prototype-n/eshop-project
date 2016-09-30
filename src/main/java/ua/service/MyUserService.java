@@ -5,13 +5,15 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import ua.entity.Item;
 import ua.entity.MyUser;
-import ua.entity.Role;
 
 public interface MyUserService {
 
 	void save(MyUser myUser);
+	
+	public MyUser findById(int id);
+	
+	MyUser findByLogin(String name);
 	
 	MyUser findByName(String name);
 	

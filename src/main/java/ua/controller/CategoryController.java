@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,22 +56,41 @@ public class CategoryController {
 //		}		
 		
 		@RequestMapping("/admin/category/delete/{id}")
-		public String deleteCategory(@PathVariable int id){
+		public String deleteCategory(@PathVariable int id,
+				@PageableDefault(5) Pageable pageable,
+				@ModelAttribute(value="filter") CategoryFilterForm form){
 			categoryService.delete(id);
-			return "redirect:/admin/category";
+			return "redirect:/admin/category"+getParams(pageable, form);
 		}
 		
 		@RequestMapping("/admin/category/update/{id}")
-		public String updateCategory(@PathVariable int id, Model model ){
+		public String updateCategory(Model model,
+				@PathVariable int id,
+				@PageableDefault(5) Pageable pageable,
+				@ModelAttribute(value="filter") CategoryFilterForm form){
+		
 			model.addAttribute("category", categoryService.findOne(id));
+			model.addAttribute("page", categoryService.findAll(pageable, form));
+			
+			//model.addAttribute("category", categoryService.findOne(id));
 			//model.addAttribute("categories", categoryService.findAll(pageable));
 			return "AdminCategory";
 		}
 		
 		@RequestMapping(value= "/admin/category", method=RequestMethod.POST)
-		public String save(@ModelAttribute("category") @Valid Category category) {
+		public String save(
+					@ModelAttribute("category") 
+					@Valid Category category,
+					BindingResult br,
+					@PageableDefault(5) Pageable pageable,
+					@ModelAttribute(value="filter") CategoryFilterForm form,
+					Model model){
+			if(br.hasErrors()){
+				model.addAttribute("page", categoryService.findAll(pageable, form));
+				return "AdminCategory";
+			}
 			categoryService.save(category);
-			return "redirect:/admin/category" ;
+			return "redirect:/admin/category"+getParams(pageable, form);
 		}
 		
 		private String getParams(Pageable pageable, CategoryFilterForm form){
@@ -92,4 +112,4 @@ public class CategoryController {
 			buffer.append(form.getSearch());
 			return buffer.toString();
 		}
-	}
+	}	
