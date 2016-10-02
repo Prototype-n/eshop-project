@@ -36,7 +36,7 @@ public class MyUser implements UserDetails{
 	
 	private String password;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	private Role role;
 
 	public int getId() {
@@ -90,11 +90,11 @@ public class MyUser implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		authorities.add(new SimpleGrantedAuthority(role.getName()));//"ROLE_ADMIN")
 		
-		System.out.println("**************");
-		System.out.println();
-		System.out.println("**************");
+		System.out.println("**************1");
+		System.out.println(role.getName());
+		System.out.println("**************2");
 		return authorities;
 	}
 
@@ -138,6 +138,28 @@ public class MyUser implements UserDetails{
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MyUser other = (MyUser) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 

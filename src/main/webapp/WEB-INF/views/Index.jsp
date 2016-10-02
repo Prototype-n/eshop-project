@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 prefix="security"%>
 
-<h3>Hello</h3>
+<h3>Hello Index Jsp</h3>
 <security:authorize access="!isAuthenticated()">
 <a href="/registration">Register</a>
 </security:authorize>

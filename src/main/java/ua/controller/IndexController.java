@@ -2,8 +2,6 @@ package ua.controller;
 
 import java.security.Principal;
 
-import javax.xml.soap.Detail;
-
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -3,20 +3,35 @@ package ua.service.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ua.entity.Category;
 import ua.entity.Item;
 import ua.form.ItemForm;
+import ua.form.filter.CategoryFilterForm;
+import ua.form.filter.ItemFilterForm;
+import ua.repository.CategoryRepository;
 import ua.repository.ItemRepository;
+import ua.service.FileWriter;
+import ua.service.FileWriter.Folder;
 import ua.service.ItemService;
+import ua.service.implementation.specification.CategoryFilterAdapter;
+import ua.service.implementation.specification.ItemFilterAdapter;
 
 @Service
 @Transactional
 public class ItemServiceImpl implements ItemService{
 
+	
 	@Autowired
 	private ItemRepository itemRepository;
+	
+	
+	@Autowired
+	private FileWriter fileWriter;
 	
 	@Override
 	public void save(Item item) {
@@ -71,7 +86,15 @@ public class ItemServiceImpl implements ItemService{
 			item.setName(form.getName());
 			item.setPrice(Integer.parseInt(form.getPrice()));
 			item.setId(form.getId());
-			itemRepository.save(item);
+			item.setPath(form.getPath());
+			item.setVersion(form.getVersion());
+			itemRepository.saveAndFlush(item);
+			String extension = fileWriter.write(Folder.ITEM, form.getFile(), item.getId());
+			if(extension!=null){
+				item.setVersion(form.getVersion()+1);
+				item.setPath(extension);
+				itemRepository.save(item);
+			}
 	}
 	
 	@Override
@@ -82,8 +105,14 @@ public class ItemServiceImpl implements ItemService{
 		form.setCategory(item.getCategory());
 		form.setPrice(String.valueOf(item.getPrice()));
 		form.setName(item.getName());
+		form.setPath(item.getPath());
+		form.setVersion(item.getVersion());
+		
 		return form;
 	}
 	
+	@Override
+	public Page<Item> findAll(ItemFilterForm form, Pageable pageable) {
+		return itemRepository.findAll(new ItemFilterAdapter(form), pageable);
+	}	
 }
-

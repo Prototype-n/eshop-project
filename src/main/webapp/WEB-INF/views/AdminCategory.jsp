@@ -9,7 +9,22 @@
 <title>Admincategory jsp</title>
 </head>
 <body>
-<h3>Тут буде адмінка категорій</h3>
+	<div class="row-fluid">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/admin/category">Category</a><span class="sr-only">(current)</span></li>
+						<li><a href="/admin/item">Item</a></li>
+						<li><a href="/admin/myUser">MyUser</a></li>
+						<li><a href="/admin/role">Role</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+
 
 	<form:form action="/admin/category" method="post" modelAttribute="category">
 		

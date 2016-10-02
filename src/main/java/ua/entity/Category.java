@@ -17,10 +17,31 @@ public class Category {
 	private int id;
 	
 	private String name;
+	
+	private int version;
+	
+	private String path;
 
 	@OneToMany(mappedBy="category")
 	private List<Item> items = new ArrayList<>();
 	
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -44,4 +65,27 @@ public class Category {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
 }

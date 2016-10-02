@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import ua.entity.Category;
 import ua.entity.MyUser;
+import ua.form.filter.CategoryFilterForm;
+import ua.form.filter.MyUserFilterForm;
 
 public interface MyUserService {
 
@@ -34,4 +37,7 @@ public interface MyUserService {
 	List<MyUser> findAll();
 	
 	public Page<MyUser> findAll(Pageable pageable);
+	
+	public Page<MyUser> findAll(MyUserFilterForm form, Pageable pageable);
+	
 }

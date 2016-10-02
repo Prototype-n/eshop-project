@@ -9,11 +9,28 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>Тут буде адмінка користувачів</h3>
+	<div class="row-fluid">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="">
+					<ul class="nav navbar-nav">
+						<li><a href="/admin/category">Category</a></li>
+						<li><a href="/admin/item">Item</a></li>
+						<li class="active"><a href="/admin/myUser">MyUser</a><span class="sr-only">(current)</span></li>
+						<li><a href="/admin/role">Role</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
 	<form:form action="/admin/myUser" method="post" modelAttribute="myUser">
 	
 	<form:errors path="*"/>
-		<form:hidden path="id"/>
+	<form:hidden path="id"/>
+		
+	<custom:hiddenInputs excludeParams="id, name, lastName, mail, role"/>
+		
 		<table>	
 			<tr>
 				<td>
@@ -34,59 +51,68 @@
 			</tr>
 	</table>	
 	
-	<table>
-			<tr>
-				<td><form:errors path="name" /></td>
-			</tr>
-			<tr>
-				<td><form:input path="name" placeholder="First Name"/></td>
-			</tr>
-			
-			<tr>
-				<td><form:errors path="lastName" /></td>
-			</tr>
-			<tr>
-				<td><form:input path="lastName" placeholder="last Name"/></td>
-			</tr>
-			
-			<tr>
-				<td><form:errors path="mail" /></td>
-			</tr>
-			<tr>
-				<td><form:input path="mail" placeholder="Mail"/></td>
-			</tr>
-			
-			<tr>
-				<td><form:errors path="phone" /></td>
-			</tr>
-			<tr>
-				<td><form:input path="phone" placeholder="Phone"/></td>
-			</tr>
-			<tr>
-			<td><input type="submit" value="Add admin/user"></td>
-			</tr>
-	</table>
+	<div class="form-group">
+			<label for="name"><form:errors path="name" /></label>
+				<form:input path="name" id="name" class="form-control" placeholder="First Name"/>
+			<label><form:errors path="lastName" /></label>
+				<form:input path="lastName" id="lastName" class="form-control"  placeholder="last Name"/>
+			<label><form:errors path="mail" /></label>
+				<form:input path="mail" id="mail" class="form-control"   placeholder="Mail"/>
+			<label><form:errors path="phone" /></label>
+				<form:input path="phone" id="phone" class="form-control" placeholder="Phone"/>
+				<br>
+			<button type="submit" class="btn btn-primary">Add admin/user</button>
+<!-- 			<input type="submit" value="Add admin/user">	 -->
+	</div>
+
 	</form:form>
-	<table>
-		<tr>
-			<th>MyUser  name</th>
-		</tr>
-		<c:forEach items="${myUsers}" var="myUser">
-			<tr>
-				<td>${myUser.name}</td>	
-				<td>
-					<a href="/admin/myUser/delete/${myUser.id}">delete</a>
-				</td>
-				<td>
-					<a href="/admin/myUser/update/${myUser.id}">update</a>
-				</td>		
-			</tr>	
-		</c:forEach>
-	</table>
 	
-	<table>
-		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>"/>
-	</table>
+		<div class="row">
+			<div class="col-md-2"><h3>LastName</h3></div>
+			<div class="col-md-2"><h3>Name</h3></div>
+			<div class="col-md-2"><h3>Mail</h3></div>
+			<div class="col-md-2"><h3>Role</h3></div>
+			<div class="col-md-2"><h3>Phone</h3></div>
+			<div class="col-md-1"><h3>Delete</h3></div>
+			<div class="col-md-1"><h3>Update</h3></div>
+		</div>	
+	
+			<br>
+			<c:forEach items="${page.content}" var="myUser">
+				<div class="row">
+					<div class="col-md-2">${myUser.lastName}</div>
+					<div class="col-md-2">${myUser.name}</div>
+					<div class="col-md-2">${myUser.mail}</div>
+					<div class="col-md-2">${myUser.phone}</div>
+					<div class="col-md-2">${myUser.role.name}</div>
+					<div class="col-md-1"><a href="/admin/myUser/delete/${myUser.id}<custom:allParams/>">delete</a></div>
+					<div class="col-md-1"><a href="/admin/myUser/update/${myUser.id}<custom:allParams/>">update</a></div>
+				</div>
+			</c:forEach>
+					
+		<br>	
+		<div class="col-md-2 col-md-offset-9">
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<custom:sort innerHtml="Name asc" paramValue="name"/>
+						<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+						<custom:sort innerHtml="Category name asc" paramValue="role.name"/>
+						<custom:sort innerHtml="Category name desc" paramValue="role.name,desc"/>
+					</ul>
+				</div>
+			</div>
+	</div>
+
+	<div class="col-md-1">
+		<custom:size posibleSizes="1,2,5,10" size="${page.size}" title="Page size"/>
+	</div>
+	<div class="col-md-12 text-center">
+	<br>
+		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>" />
+	</div>
 	
 	<br>
 	<a href="/admin/">Back to admin panel.jsp</a><br>

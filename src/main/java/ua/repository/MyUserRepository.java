@@ -1,12 +1,14 @@
 package ua.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import ua.entity.Item;
 import ua.entity.MyUser;
 
-public interface MyUserRepository extends JpaRepository<MyUser, Integer> {
+public interface MyUserRepository extends JpaRepository<MyUser, Integer>, JpaSpecificationExecutor<MyUser> {
 
 	MyUser findByLogin(String login);
 	

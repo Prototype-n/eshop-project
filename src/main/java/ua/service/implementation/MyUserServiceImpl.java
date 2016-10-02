@@ -12,15 +12,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.entity.MyUser;
 import ua.entity.Role;
+import ua.form.filter.MyUserFilterForm;
 import ua.repository.MyUserRepository;
 import ua.repository.RoleRepository;
 import ua.service.MyUserService;
+import ua.service.implementation.specification.CategoryFilterAdapter;
+import ua.service.implementation.specification.MyUserFilterAdapter;
 
 
 @Service("userDetailsService")
+@Transactional
 public class MyUserServiceImpl implements MyUserService, UserDetailsService {
 
 	@Autowired
@@ -101,6 +106,11 @@ public class MyUserServiceImpl implements MyUserService, UserDetailsService {
 	@Override
 	public MyUser findByLogin(String login) {
 		return myUserRepository.findByLogin(login);
+	}
+
+	@Override
+	public Page<MyUser> findAll(MyUserFilterForm form, Pageable pageable) {
+		return myUserRepository.findAll(new MyUserFilterAdapter(form), pageable);
 	}
 	
 //	@PostConstruct

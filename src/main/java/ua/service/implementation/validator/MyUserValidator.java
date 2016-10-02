@@ -15,9 +15,7 @@ public class MyUserValidator implements Validator{
 	public final MyUserService myUserService;
 	
 	private static Pattern pn = Pattern.compile("^[a-z0-9_-]{3,15}$");
-	
 	private static Pattern pm = Pattern.compile("^[a-z@._]+$");
-	
 	private static Pattern pp = Pattern.compile("^[0-9]{1,12}$");
 
 	public MyUserValidator (MyUserService myUserService){
@@ -31,6 +29,7 @@ public class MyUserValidator implements Validator{
 
 	@Override
 	public void validate(Object terget, Errors errors) {
+		
 		MyUser myUser = (MyUser) terget;
 		if(myUser.getId()==0)if(myUserService.findByMail(myUser.getMail())!=null){
 			errors.rejectValue("mail", "", "Mail already regisred");

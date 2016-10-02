@@ -10,8 +10,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>Тут буде адмінка ролей</h3>
-
+	<div class="row-fluid">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="">
+					<ul class="nav navbar-nav">
+						<li><a href="/admin/category">Category</a></li>
+						<li><a href="/admin/item">Item</a></li>
+						<li><a href="/admin/myUser">MyUser</a></li>
+						<li class="active"><a href="/admin/role">Role</a><span class="sr-only">(current)</span></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	
+	
 	<form:form action="/admin/role" method="post" modelAttribute="role">	
 		<form:hidden path="id"/>
 		<table>
