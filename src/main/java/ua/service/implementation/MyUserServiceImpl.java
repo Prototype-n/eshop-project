@@ -129,6 +129,19 @@ public class MyUserServiceImpl implements MyUserService, UserDetailsService {
 //			myUserRepository.save(myUser);
 //		}
 //	}
-
-
+	
+	public void saveMy(MyUser myUser){
+	MyUser MU = myUserRepository.findByMail(myUser.getMail());
+	if(MU==null){
+		MU = new MyUser();
+		MU.setLogin(myUser.getLogin());
+		MU.setPassword(encoder.encode(myUser.getPassword()));
+		MU.setName(myUser.getName());
+		MU.setLastName(myUser.getLastName());
+		MU.setMail(myUser.getMail());
+		MU.setRole(roleRepository.findByName("ROLE_USER")); // Role_Admin or ROLE_ADMIN
+		MU.setPhone(myUser.getPhone());
+		myUserRepository.save(MU);
+	}
+}
 }

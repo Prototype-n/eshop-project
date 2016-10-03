@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="custom"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<link rel="stylesheet" href="/resources/css/adminItem.css">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -97,18 +98,7 @@
 			</nav>
 		</div>
 
-		<div class="row-fluid">
-		<div class="col-md-3">
-		<form:form action="/admin/item" class="form-inline" method="get" modelAttribute="filter">
-				<custom:hiddenInputs excludeParams="search"/>
-				<div class="form-group">
-					<form:input path="search" placeholder="search" class="form-control" />
-					<button type="submit" class="btn btn-danger">Ok</button>
-				</div>
-			</form:form>
-		</div>
-
-<form:form action="/admin/item" method="post" modelAttribute="form" class="form-inline" enctype="multipart/form-data">
+	<form:form action="/admin/item" method="post" modelAttribute="form" class="form-inline" enctype="multipart/form-data">
 		<form:errors path="*"/>
 		<form:hidden path="id" />
 		<form:hidden path="path" />
@@ -129,6 +119,17 @@
         		Browse <input type="file" name="file" style="display: none;">
     		</label>
 			<button type="submit" class="btn btn-primary">Create Item NEWe</button>
+		
+		
+<!-- search		 -->
+			<form:form action="/admin/item" class="form-inline" method="get" modelAttribute="filter">
+				<custom:hiddenInputs excludeParams="search"/>
+				<div class="form-group">
+					<form:input path="search" placeholder="search" class="form-control" />
+					<button type="submit" class="btn btn-danger">Ok</button>
+				</div>
+			</form:form>
+		
 		</div>
 			
 
@@ -138,13 +139,40 @@
 
 
 	</form:form>
-	
+<div class="container-fluid">
+	<div class="col-md-3  col-xs-12">
+			<form:form action="/admin/item" class="form-inline" method="get" modelAttribute="filter">
+				<custom:hiddenInputs excludeParams="min, max,  categoryIds, _categoryIds"/>
+				<div class="form-group">
+					<form:input path="min" placeholder="min" class="form-control"/>
+					<form:input path="max" placeholder="max" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<h4>Category</h4>
+				</div>
+				<div class="form-group">
+					<form:checkboxes items="${categories}" path="categoryIds" itemLabel="name" itemValue="id"/><br>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Ok</button>
+				</div>				
+			
+				<custom:hiddenInputs excludeParams="search"/>
+				<div class="form-group">
+					<form:input path="search" placeholder="search" class="form-control" />
+					<button type="submit" class="btn btn-danger">Ok</button>
+				</div>
+			</form:form>
+			
+		</div>
+	<div class="col-md-9">
 		<div class="row">
 			<div class="col-md-2"><h3>Photo</h3></div>
 			<div class="col-md-2"><h3>Item name</h3></div>
 			<div class="col-md-2"><h3>Price</h3></div>
-			<div class="col-md-1"><h3>Delete</h3></div>
-			<div class="col-md-1"><h3>Update</h3></div>
+			<div class="col-md-2"><h3>Category</h3></div>
+			<div class="col-md-2"><h3>Delete</h3></div>
+			<div class="col-md-2"><h3>Update</h3></div>
 						
 		</div>
 		<c:forEach items="${page.content}" var="item">
@@ -152,11 +180,14 @@
 				<div class="col-md-2"><img class="img-thumbnail" width="100" src="/images/Item/${item.id}${item.path}?version=${item.version}" /></div>
 				<div class="col-md-2"><h4>${item.name}</h4></div>
 				<div class="col-md-2"><h4>${item.price}</h4></div>
-				<div class="col-md-1"><h4><a href="/admin/item/delete/${item.id}<custom:allParams/>">delete</a></h4></div>
-				<div class="col-md-1"><h4><a href="/admin/item/update/${item.id}<custom:allParams/>">update</a></h4></div>
+				<div class="col-md-2"><h4>${item.category.name}</h4></div>
+				<div class="col-md-2"><h4><a href="/admin/item/delete/${item.id}<custom:allParams/>">delete</a></h4></div>
+				<div class="col-md-2"><h4><a href="/admin/item/update/${item.id}<custom:allParams/>">update</a></h4></div>
 			</div>		
 		</c:forEach>
+	</div>
 		
+	</div>
 	<div class="col-md-2 col-md-offset-9">
 			<div class="col-md-6">
 				<div class="dropdown">
@@ -176,6 +207,7 @@
 		<custom:size posibleSizes="1,2,5,10" size="${page.size}" title="Page size"/>
 	</div>
 	<div class="col-md-12 text-center">
+	<br>
 	<br>
 		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>" />
 	</div>

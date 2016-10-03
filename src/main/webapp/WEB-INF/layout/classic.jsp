@@ -21,7 +21,6 @@
 
 	<!-- Основной контент страницы -->
 	<div class="container">
-	<h3>Body</h3>
 		<tiles:insertAttribute name="body" />
 	</div>
 	

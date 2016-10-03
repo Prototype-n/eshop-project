@@ -14,6 +14,8 @@ public interface MyUserService {
 
 	void save(MyUser myUser);
 	
+	public void saveMy(MyUser myUser);
+	
 	public MyUser findById(int id);
 	
 	MyUser findByLogin(String name);

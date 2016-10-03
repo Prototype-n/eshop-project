@@ -122,4 +122,46 @@ public class MyUserController {
 		}
 		return buffer.toString();
 	}
+	
+	
+	
+	
+	
+
+
+	
+	
+	@RequestMapping("/registration")
+	public String register(){
+		return "Registration";
+	}
+	
+	@RequestMapping(value="/registration", method=RequestMethod.POST)
+	public String save(
+			@ModelAttribute("myUser") 
+			@Valid MyUser myUser,
+			BindingResult br){
+		myUserService.saveMy(myUser);
+		return "redirect:/registration";
+	}
+	
+	
+	
+//	public String save(Model model, 
+//			@ModelAttribute("myUser")
+//			@Valid MyUser myUser,
+//			BindingResult br, 
+//			@PageableDefault(5) Pageable pageable,
+//			@ModelAttribute(value="filter") MyUserFilterForm form){
+//		if(br.hasErrors()){
+//			model.addAttribute("page", myUserService.findAll(form, pageable));
+//			model.addAttribute("myUsers", myUserService.findAll());
+//			model.addAttribute("roles", roleService.findAll());
+//		return "AdminMyUser";		
+//		}
+//		myUserService.save(myUser);
+	
+	
+	
+	
 }

@@ -19,7 +19,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
 <%--     <security:authentication property="principal.password"/> --%>
-    	<li><a>${authMyUser.login}</a></li>
+    	<li><a>Hallo ${authMyUser.login}</a></li>
     <security:authorize access="isAuthenticated()">
 			<li>
 				<form:form action="/logout" method="post"

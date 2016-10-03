@@ -34,21 +34,22 @@ public class ItemController {
 	@Autowired
 	private CategoryService categoryService;
 
+	@ModelAttribute("form")
+	public ItemForm getForm() {
+		return new ItemForm();
+	}
+	
+	@ModelAttribute("filter")
+	public ItemFilterForm getFilter(){
+		return new ItemFilterForm();
+	}
+	
 	@InitBinder("form")
 	protected void initBinder(WebDataBinder binder){
 	   binder.registerCustomEditor(Category.class, new CategoryEditor(categoryService));
 	   binder.setValidator(new ItemFormValidator(itemService));
 	}
 	
-	@ModelAttribute("form")
-	public ItemForm getForm() {
-		return new ItemForm();
-	}
-//	
-//	@ModelAttribute("filter")
-//	public ItemFilterForm getFilter(){
-//		return new ItemFilterForm();
-//	}
 	
 	@RequestMapping("/admin/item")
 	public String showItem(Model model,
@@ -56,9 +57,7 @@ public class ItemController {
 			@ModelAttribute(value="filter") ItemFilterForm form){
 	//	model.addAttribute("items", itemService.findAll());
 		model.addAttribute("page", itemService.findAll(form, pageable));
-		System.out.println("form"+form.toString());
-		System.out.println("pageble "+pageable);
-	//	model.addAttribute("categories", categoryService.findAll());
+		model.addAttribute("categories", categoryService.findAll());
 		return "AdminItem";
 	}
 

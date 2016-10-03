@@ -29,7 +29,7 @@
 	<form:errors path="*"/>
 	<form:hidden path="id"/>
 		
-	<custom:hiddenInputs excludeParams="id, name, lastName, mail, role"/>
+	<custom:hiddenInputs excludeParams="id, login, name, lastName, phone, mail, role"/>
 		
 		<table>	
 			<tr>
@@ -52,6 +52,8 @@
 	</table>	
 	
 	<div class="form-group">
+			<label for="login"><form:errors path="login" /></label>
+				<form:input path="login" id="login" class="form-control" placeholder="Login"/>
 			<label for="name"><form:errors path="name" /></label>
 				<form:input path="name" id="name" class="form-control" placeholder="First Name"/>
 			<label><form:errors path="lastName" /></label>
@@ -60,6 +62,9 @@
 				<form:input path="mail" id="mail" class="form-control"   placeholder="Mail"/>
 			<label><form:errors path="phone" /></label>
 				<form:input path="phone" id="phone" class="form-control" placeholder="Phone"/>
+			<label><form:errors path="password" /></label>
+				<form:input path="password" id="password" class="form-control" placeholder="password"/>
+
 				<br>
 			<button type="submit" class="btn btn-primary">Add admin/user</button>
 <!-- 			<input type="submit" value="Add admin/user">	 -->
@@ -67,12 +72,13 @@
 
 	</form:form>
 	
-		<div class="row">
+		<div class="row">		
+			<div class="col-md-1"><h3>Login</h3></div>
 			<div class="col-md-2"><h3>LastName</h3></div>
 			<div class="col-md-2"><h3>Name</h3></div>
 			<div class="col-md-2"><h3>Mail</h3></div>
-			<div class="col-md-2"><h3>Role</h3></div>
 			<div class="col-md-2"><h3>Phone</h3></div>
+			<div class="col-md-1"><h3>Role</h3></div>
 			<div class="col-md-1"><h3>Delete</h3></div>
 			<div class="col-md-1"><h3>Update</h3></div>
 		</div>	
@@ -80,11 +86,12 @@
 			<br>
 			<c:forEach items="${page.content}" var="myUser">
 				<div class="row">
+					<div class="col-md-1">${myUser.login}</div>
 					<div class="col-md-2">${myUser.lastName}</div>
 					<div class="col-md-2">${myUser.name}</div>
 					<div class="col-md-2">${myUser.mail}</div>
 					<div class="col-md-2">${myUser.phone}</div>
-					<div class="col-md-2">${myUser.role.name}</div>
+					<div class="col-md-1">${myUser.role.name}</div>
 					<div class="col-md-1"><a href="/admin/myUser/delete/${myUser.id}<custom:allParams/>">delete</a></div>
 					<div class="col-md-1"><a href="/admin/myUser/update/${myUser.id}<custom:allParams/>">update</a></div>
 				</div>
@@ -99,8 +106,8 @@
 					<ul class="dropdown-menu">
 						<custom:sort innerHtml="Name asc" paramValue="name"/>
 						<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
-						<custom:sort innerHtml="Category name asc" paramValue="role.name"/>
-						<custom:sort innerHtml="Category name desc" paramValue="role.name,desc"/>
+						<custom:sort innerHtml="Role name asc" paramValue="role.name"/>
+						<custom:sort innerHtml="Role name desc" paramValue="role.name,desc"/>
 					</ul>
 				</div>
 			</div>
