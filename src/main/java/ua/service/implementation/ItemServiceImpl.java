@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -114,5 +115,27 @@ public class ItemServiceImpl implements ItemService{
 	@Override
 	public Page<Item> findAll(ItemFilterForm form, Pageable pageable) {
 		return itemRepository.findAll(new ItemFilterAdapter(form), pageable);
+	}
+
+//	public Pageable test (Pageable pageable, int id) {
+//		return itemRepository.test(pageable, id);
+//	}
+	
+	@Override
+	public List<Item> findRandom(int numbersItem) {
+		return itemRepository.findRandom(numbersItem);
+	}
+
+	@Override
+	public Page<Item> findItemByCategoryId(ItemFilterForm form, Pageable pageable, int id) {
+		return itemRepository.findItemByCategoryId(new ItemFilterAdapter(form), pageable, id);
 	}	
+//
+//	@Override
+//	public Page<Item> findItemByCategoryId(Pageable pageable, int id) {
+//		return itemRepository.findItemByCategoryId(pageable, id);
+//	}	
+
+
+	
 }

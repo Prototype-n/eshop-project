@@ -19,8 +19,8 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
 <%--     <security:authentication property="principal.password"/> --%>
-    	<li><a>Hallo ${authMyUser.login}</a></li>
-    <security:authorize access="isAuthenticated()">
+    	<security:authorize access="isAuthenticated()">
+    	<li><a>Hello, ${authMyUser.login}!</a></li>
 			<li>
 				<form:form action="/logout" method="post"
 					class="navbar-form navbar-right">
@@ -34,11 +34,9 @@
 			</li>
 		</security:authorize>
 		<security:authorize access="!isAuthenticated()">
-			<li>
-			
-				<a class="btn btn-default" href="/login">Login</a>
-			</li>
-	</security:authorize>
+			<li><a href="/registration">Register</a></li>
+			<li><a class="btn btn-default" href="/login">Login</a></li>
+		</security:authorize>
     </ul>
   </div>
   </nav>

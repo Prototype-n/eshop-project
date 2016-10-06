@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import ua.entity.Item;
 import ua.form.ItemForm;
@@ -30,5 +31,12 @@ public interface ItemService {
 	ItemForm findForForm(int id);
 	
 	public Page<Item> findAll( ItemFilterForm form, Pageable pageable);
+
+	public List<Item> findRandom(int numbersItem);
+	
+
+//	public Page<Item> findItemByCategoryId(Pageable pageable, int id);
+//	
+	public Page<Item> findItemByCategoryId(ItemFilterForm form, Pageable pageable, int id);
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.entity.Category;
 import ua.form.ItemForm;
@@ -113,6 +114,22 @@ public class ItemController {
 			@ModelAttribute(value="filter") ItemFilterForm form){
 		itemService.delete(id);
 		return "redirect:/admin/item"+getParams(pageable, form);
+	}
+
+	@RequestMapping(value= "/item/findItemByCategory/{id}")
+	public String showItemByCategory (Model model,
+			@PathVariable int id,
+			@PageableDefault(5) Pageable pageable,
+			@ModelAttribute(value="filter") ItemFilterForm form, 
+			@RequestParam(value = "sort", defaultValue = "name") String sort){	
+		model.addAttribute("page", itemService.findItemByCategoryId(form, pageable, id));
+		
+		
+		System.out.println(sort);
+		
+		//model.addAttribute("items", itemService.findItemByCategory(id));// pokazye vsepru udate
+		//model.addAttribute("categories", categoryService.findAll());
+		return "Item";
 	}
 	
 	private String getParams(Pageable pageable, ItemFilterForm form){

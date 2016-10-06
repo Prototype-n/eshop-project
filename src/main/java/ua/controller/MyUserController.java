@@ -49,6 +49,17 @@ public class MyUserController {
 	public MyUserFilterForm getFilter(){
 		return new MyUserFilterForm();
 	}
+
+	@RequestMapping("/admin/order")
+	public String showOrder(Model model, 
+			@PageableDefault(5) Pageable pageable,
+			@ModelAttribute(value="filter") MyUserFilterForm form){
+		model.addAttribute("myUsers", myUserService.findAll());
+		//model.addAttribute("roles", roleService.findAll());
+		model.addAttribute("page", myUserService.findAll(pageable));
+		return "AdminOrder";
+	}
+
 	
 	@RequestMapping("/admin/myUser")
 	public String showMyUser(Model model, 
@@ -76,6 +87,22 @@ public class MyUserController {
 		}
 		myUserService.save(myUser);
 		return "redirect:/admin/myUser"+getParams(pageable, form);
+	}
+
+	@RequestMapping(value="/registration", method=RequestMethod.POST)
+	public String save(Model model,
+			@ModelAttribute("myUser") 
+			@Valid MyUser myUser,
+			BindingResult br){
+		if(br.hasErrors()){
+			//model.addAttribute("page", myUserService.findAll(form, pageable));
+			model.addAttribute("myUsers", myUserService.findAll());
+			//model.addAttribute("roles", roleService.findAll());
+		return "Registration";		
+		}
+	
+		myUserService.saveMy(myUser);
+		return "redirect:/registration";
 	}
 	
 	@RequestMapping("/admin/myUser/update/{id}")
@@ -136,14 +163,6 @@ public class MyUserController {
 		return "Registration";
 	}
 	
-	@RequestMapping(value="/registration", method=RequestMethod.POST)
-	public String save(
-			@ModelAttribute("myUser") 
-			@Valid MyUser myUser,
-			BindingResult br){
-		myUserService.saveMy(myUser);
-		return "redirect:/registration";
-	}
 	
 	
 	

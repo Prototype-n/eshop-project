@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -39,6 +40,9 @@ public class MyUser implements UserDetails{
 	@ManyToOne
 	private Role role;
 
+	@ManyToMany
+	private List<Item> items = new ArrayList<>();
+	
 	public int getId() {
 		return id;
 	}
@@ -89,12 +93,8 @@ public class MyUser implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(role.getName()));//"ROLE_ADMIN")
-		
-		System.out.println("**************1");
-		System.out.println(role.getName());
-		System.out.println("**************2");
+			List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+			authorities.add(new SimpleGrantedAuthority(role.getName()));//"ROLE_ADMIN")
 		return authorities;
 	}
 

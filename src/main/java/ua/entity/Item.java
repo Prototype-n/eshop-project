@@ -1,10 +1,15 @@
 package ua.entity;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -24,6 +29,28 @@ public class Item {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Category category;
+
+	private LocalDateTime timeOrder;
+	
+	@ManyToMany(mappedBy="items")
+	private List<MyUser> myUsers = new ArrayList<>();
+	
+	
+	public LocalDateTime getTimeOrder() {
+		return timeOrder;
+	}
+
+	public void setTimeOrder(LocalDateTime timeOrder) {
+		this.timeOrder = timeOrder;
+	}
+
+	public List<MyUser> getMyUsers() {
+		return myUsers;
+	}
+
+	public void setMyUsers(List<MyUser> myUsers) {
+		this.myUsers = myUsers;
+	}
 
 	public int getVersion() {
 		return version;

@@ -5,12 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <link rel="stylesheet" href="/resources/css/adminItem.css">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta charset="UTF-8">
 <title>AdminItemJsp</title>
-</head>
-<body>
 
 <%-- 		<form:form action="/admin/item" method="post" modelAttribute="form"> --%>
 		
@@ -90,6 +85,7 @@
 						<ul class="nav navbar-nav">
 							<li><a href="/admin/category">Category</a></li>
 							<li class="active"><a href="/admin/item">Item</a><span class="sr-only">(current)</span></li>
+							<li><a href="/admin/order">Order</a></li>
 							<li><a href="/admin/myUser">MyUser</a></li>
 							<li><a href="/admin/role">Role</a></li>
 						</ul>
@@ -156,14 +152,7 @@
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Ok</button>
 				</div>				
-			
-				<custom:hiddenInputs excludeParams="search"/>
-				<div class="form-group">
-					<form:input path="search" placeholder="search" class="form-control" />
-					<button type="submit" class="btn btn-danger">Ok</button>
-				</div>
 			</form:form>
-			
 		</div>
 	<div class="col-md-9">
 		<div class="row">
@@ -213,5 +202,3 @@
 	</div>
 
 </div>
-</body>
-</html>

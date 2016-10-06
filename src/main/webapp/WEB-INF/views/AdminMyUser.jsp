@@ -16,6 +16,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="/admin/category">Category</a></li>
 						<li><a href="/admin/item">Item</a></li>
+						<li><a href="/admin/order">Order</a></li>
 						<li class="active"><a href="/admin/myUser">MyUser</a><span class="sr-only">(current)</span></li>
 						<li><a href="/admin/role">Role</a></li>
 					</ul>

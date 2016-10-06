@@ -50,4 +50,15 @@
         <put-attribute name="body" value="/WEB-INF/views/Registration.jsp" />
     </definition>
     
+    
+    <definition name="AdminOrder" extends="common">
+        <put-attribute name="title" value="Admin" />
+        <put-attribute name="body" value="/WEB-INF/views/AdminOrder.jsp" />
+    </definition>
+    
+    <definition name="Item" extends="common">
+        <put-attribute name="title" value="Admin" />
+        <put-attribute name="body" value="/WEB-INF/views/Item.jsp" />
+    </definition>
+    
 </tiles-definitions>
